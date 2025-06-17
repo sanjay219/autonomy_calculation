@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Autonomy Level Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f7f7f7;
+    }
+    h1 {
+      text-align: center;
+    }
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 15px;
+      font-size: 16px;
+      background: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Autonomy Level Calculator</h1>
+  <form id="autonomyForm">
+    <label>Operator Decision Accuracy (%)<input type="number" step="0.01" name="Hc"></label>
+    <label>Environmental Unpredictability (%)<input type="number" step="0.01" name="Mu"></label>
+    <label>Human Supervision Hours/Day (0-24)<input type="number" step="0.01" name="Hi"></label>
+    <label>Goal Clarity Score (0-10)<input type="number" step="0.01" name="Mg"></label>
+    <label>Task Completion Rate (%)<input type="number" step="0.01" name="P"></label>
+    <label>Error Recovery Success Rate (%)<input type="number" step="0.01" name="R"></label>
+    <label>System Randomness Index (0-10)<input type="number" step="0.01" name="Me"></label>
+    <label>AI Scenario Handling Capacity (0-10)<input type="number" step="0.01" name="Mai"></label>
+    <label>Network Reliability (%)<input type="number" step="0.01" name="Mc"></label>
+    <label>Compliance Check Score (%)<input type="number" step="0.01" name="Mrr"></label>
+    <label>Self-Training Episodes/Week (0-50)<input type="number" step="0.01" name="Ml"></label>
+    <label>Decision Rules/Layers (0-20)<input type="number" step="0.01" name="Cm"></label>
+    <label>External Variables Handled (0-10)<input type="number" step="0.01" name="Mcx"></label>
+    <label>Battery Capacity Retention (%)<input type="number" step="0.01" name="Bh"></label>
+    <label>Redundant Subsystems Count (0-10)<input type="number" step="0.01" name="Mrd"></label>
+    <label>Operator Trust Level (0-10)<input type="number" step="0.01" name="Ht"></label>
+    <label>Time to Replace Module (minutes 0-120)<input type="number" step="0.01" name="Mmd"></label>
+    <button type="submit">Calculate Autonomy Level</button>
+    <div class="result" id="result"></div>
+  </form>
+
+  <script>
+    document.getElementById('autonomyForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const z = 4.5e6;
+      const data = Object.fromEntries(new FormData(e.target));
+      const num = k => parseFloat(data[k]) || 0;
+
+      let Hc = num("Hc");
+      let Mu = num("Mu");
+      let Hi = num("Hi") * 100 / 24;
+      let Mg = num("Mg") * 10;
+      let P = num("P");
+      let R = num("R");
+      let Me = num("Me") * 10;
+      let Mai = num("Mai") * 10;
+      let Mc = num("Mc");
+      let Mrr = num("Mrr");
+      let Ml = num("Ml") * 2;
+      let Cm = num("Cm") * 5;
+      let Mcx = num("Mcx") * 10;
+      let Bh = num("Bh");
+      let Mrd = num("Mrd") * 10;
+      let Ht = num("Ht") * 10;
+      let Mmd = 100 - (num("Mmd") * 100 / 120);
+
+      let AL1 = Hc * Mu;
+      let AL2 = Mg * Hi;
+      let AL3 = P * R;
+      let AL4 = Mg * Me;
+      let AL5 = (Hi !== 0) ? (Mai * Mai / Hi) : 0;
+      let AL6 = Mu * Mc;
+      let AL7 = (Mc !== 0) ? (Mg / Mc) : 0;
+      let AL8 = (Hi !== 0) ? (Ml * Ml / Hi) : 0;
+      let AL9 = (Hi !== 0) ? (Cm * Cm / Hi) : 0;
+      let AL10 = Mcx * Bh;
+      let AL11 = Mrd * Bh;
+      let AL12 = Ht * Hi * Mrr;
+      let AL13 = (Hi !== 0) ? (Mmd / Hi) : 0;
+
+      let A_total = (AL1 + AL2 + AL7 + AL10 + AL11 + AL12 + AL13 + AL5 + AL8 + AL9 + AL3*AL4 + AL5*AL6) / z;
+
+      let interpretation = "";
+      if (A_total < 0.001) interpretation = "Low Autonomy";
+      else if (A_total < 0.003) interpretation = "Moderate Autonomy";
+      else interpretation = "High Autonomy";
+
+      document.getElementById('result').textContent = `Autonomy Score: ${A_total.toFixed(6)} (${interpretation})`;
+    });
+  </script>
+</body>
+</html>

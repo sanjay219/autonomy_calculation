@@ -1,0 +1,79 @@
+//where
+Symbol used:
+Hc = Human Correctness
+Mu = Measure of Uncertainty
+Hi = Human Intervention
+Mg = Measure of the Set of Goals
+P = Performance
+R = Robustness
+Me = Measure of Entropy
+Mai = Measure of AI Capabilities
+Mc = Measure of Communication & Connectivity
+Mrr = Measure of Regulations & Restrictions
+Ml = Measure of Self-Learning Capability
+Cm = Model Complexity
+Mcx = Mission Complexity
+Bh = Battery Health
+Mrd = Measure of Redundancy present
+Ht = Measure of Trust
+Mmd = Modular Design
+
+factors influencing autonomy:  
+AL1 = Human in the Loop & Adaptive Autonomy
+AL2 = External Intervention
+AL3 = Performance & Robustness
+AL4 = Entropy (Uncertainty & Complexity)
+AL5 = Computational Capability & AI
+AL6 = Communication & Connectivity
+AL7 = Ethical, Legal, & Regulatory constraints
+AL8 = Learning & Adaptability
+AL9 = Mission Complexity & Environment
+AL10 = Energy Management & Battery Health
+AL11 = Safety & Redundancy Mechanisms
+AL12 = Human-Autonomy Trust & Collaboration
+AL13 = Modular & Repairable Design 
+
+where z= 4.5 * 10^6 //
+
+
+
+inouts from the user: 
+Human Correctness
+Measure of Uncertainty
+Human Intervention
+Measure of the Set of Goals
+Performance
+Robustness
+Measure of Entropy
+Measure of AI Capabilities
+Measure of Communication & Connectivity
+Measure of Regulations & Restrictions
+Measure of Self-Learning Capability
+Model Complexity
+Mission Complexity
+Battery Health
+Measure of Redundancy present
+Measure of Trust
+Modular Design
+
+internal calculations:  
+AL1 = Hc * Mu;
+AL2 = Mg * Hi;
+AL3 = P * R;
+AL4 = Mg * Me;
+AL5 = Mai * Mai / Hi;
+AL6 = Mu * Mc;
+AL7 = Mg / Mc;
+AL8 = Ml * Ml / Hi;
+AL9 = Cm * Cm / Hi;
+AL10 = Mcx * Bh;
+AL11 = Mrd * Bh;
+AL12 = Ht * Hi * Mrr;
+AL13 = Mmd / Hi;
+
+output: 
+A_total = (AL1 + AL2 + AL7 + AL10 + AL11 + AL12 + AL13 + AL5 + AL8 + AL9 + AL3*AL4 + AL5*AL6) / z;
+
+
+
+
